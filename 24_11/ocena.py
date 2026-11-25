@@ -1,20 +1,15 @@
-def sprawdzenie(liczba, wylosowana):
-    przesuniecie=0
+def sprawdzenie(liczba, wyl):
+    wylosowana=wyl.copy()
     porown=[]
-
     for i in range(len(wylosowana)):
-        if liczba[i]==wylosowana[i-przesuniecie]:
+        if liczba[i]==wylosowana[i]:
             porown.append('+')
-            wylosowana.pop(i-przesuniecie)
+            wylosowana[i]=None
             przesuniecie+=1
         else:
             porown.append('-')
-    przesuniecie2=0
-    for i in range(len(porown)):
-        if porown[i]=='F':
-            for j in range(len(wylosowana)):
-                if liczba[i]==wylosowana[j-przesuniecie2]:
-                    wylosowana.pop(j-przesuniecie2)
-                    przesuniecie2+=1
-                    porown[i]='/'
+    for i in range(len(wylosowana)):
+        if porown[i]=='-' and liczba[i] in wylosowana:
+            wylosowana[wylosowana.index(liczba[i])]=None
+            porown[i]='/'
     return porown
